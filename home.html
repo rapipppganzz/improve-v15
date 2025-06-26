@@ -14,9 +14,23 @@
       padding: 0;
       height: 100%;
     }
+
+    /* Efek getar */
+    @keyframes shake {
+      0% { transform: translate(0, 0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-2px, 2px); }
+      80% { transform: translate(2px, -2px); }
+      100% { transform: translate(0, 0); }
+    }
+
+    .shake {
+      animation: shake 0.3s ease;
+    }
   </style>
 </head>
-<body class="bg-white dark:bg-black text-black dark:text-white">
+<body class="bg-gray-200 dark:bg-gray-900 text-black dark:text-white transition-all duration-300">
 
   <!-- Audio Musik -->
   <audio id="bgMusic" autoplay loop>
@@ -24,7 +38,7 @@
   </audio>
 
   <!-- Konten -->
-  <div class="fixed inset-0 flex items-center justify-center z-10 p-4" style="min-height: calc(var(--vh, 1vh) * 100);">
+  <div id="mainContent" class="fixed inset-0 flex items-center justify-center z-10 p-4" style="min-height: calc(var(--vh, 1vh) * 100);">
     <div class="relative bg-white dark:bg-[#1e253a] text-black dark:text-white rounded-xl p-6 sm:p-10 w-full max-w-md sm:max-w-xl shadow-2xl">
 
       <!-- Logout -->
@@ -79,14 +93,14 @@
 
   <!-- Script -->
   <script>
-    // Perbaiki viewport di mobile
+    // Viewport fix untuk HP
     function setFullHeight() {
       document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     }
     window.addEventListener('resize', setFullHeight);
     window.addEventListener('load', setFullHeight);
 
-    // Autoplay Musik setelah interaksi
+    // Autoplay musik setelah interaksi
     const music = document.getElementById("bgMusic");
     function enableAudio() {
       music.muted = false;
@@ -97,7 +111,7 @@
     document.addEventListener("click", enableAudio);
     document.addEventListener("scroll", enableAudio);
 
-    // Username dari Local Storage
+    // Username dari localStorage
     const username = localStorage.getItem("username");
     if (!username) window.location.href = "index.html";
     else document.getElementById("username").textContent = username;
@@ -111,7 +125,7 @@
 
     function sendAction(action) {
       const number = document.getElementById("waNumber").value.trim();
-      
+
       if (!/^\d{6,20}$/.test(number)) {
         alert("⚠️ Nomor tidak valid. Hanya angka, panjang 6-20 digit.");
         return;
@@ -136,13 +150,20 @@
       });
     }
 
-    // Modal Support
+    // Modal support
     function closeModal() {
       document.getElementById("supportModal").classList.add("hidden");
     }
     document.getElementById("supportLink").addEventListener("click", function(e) {
       e.preventDefault();
       document.getElementById("supportModal").classList.remove("hidden");
+    });
+
+    // Efek getar di seluruh layar saat disentuh
+    document.body.addEventListener("click", () => {
+      const el = document.getElementById("mainContent");
+      el.classList.add("shake");
+      setTimeout(() => el.classList.remove("shake"), 300);
     });
   </script>
 </body>
