@@ -4,35 +4,73 @@
     <meta charset="UTF-8" />
     <title>Login - RapipppModss</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background: radial-gradient(ellipse at center, #000000 0%, #0f0f0f 100%);
+        font-family: 'Courier New', monospace;
+      }
+
+      .hacker-border {
+        border: 1px solid #00ff00;
+        box-shadow: 0 0 10px #00ff00;
+      }
+
+      .scanline {
+        background: repeating-linear-gradient(
+          180deg,
+          rgba(0, 255, 0, 0.05),
+          rgba(0, 255, 0, 0.05) 1px,
+          transparent 1px,
+          transparent 2px
+        );
+        pointer-events: none;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+
+      .glow {
+        text-shadow: 0 0 10px #00ff00;
+      }
+
+      input::placeholder {
+        color: #0f0;
+        opacity: 0.4;
+      }
+    </style>
   </head>
-  <body class="bg-[#0f172a] min-h-screen flex items-center justify-center px-4">
-    <div class="bg-[#1e253a] text-white rounded-xl p-8 w-full max-w-sm shadow-lg">
+  <body class="flex items-center justify-center min-h-screen relative">
+
+    <div class="scanline"></div>
+
+    <div class="bg-black text-green-400 rounded-xl p-8 w-full max-w-sm hacker-border relative z-10">
       
       <!-- ✅ THUMBNAIL -->
       <div class="flex justify-center mb-4">
-        <img src="https://files.catbox.moe/vfoei7.jpg" alt="Thumbnail" class="w-20 h-20 rounded-full border-2 border-cyan-400 shadow-lg" />
+        <img src="https://i.imgur.com/GDNuZcD.png" alt="Hacker" class="w-20 h-20 rounded-full border-2 border-green-400" />
       </div>
 
-      <h1 class="text-xl font-bold text-cyan-400 text-center mb-4">IMPROVE V15 PRO LOGIN</h1>
+      <h1 class="text-xl font-bold text-green-400 text-center mb-4 glow">[ ACCESS PANEL ]</h1>
 
       <input
         id="usernameInput"
         type="text"
-        placeholder="Masukkan username kamu"
-        class="w-full mb-3 px-3 py-2 rounded bg-[#2a2f44] text-[#a0a0a0] placeholder-[#a0a0a0] border border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-[#4a90e2]"
+        placeholder="> username"
+        class="w-full mb-3 px-3 py-2 rounded bg-black text-green-400 placeholder-[#0f0] border border-green-400 focus:outline-none focus:ring-2 focus:ring-green-600"
       />
       <input
         id="passwordInput"
         type="password"
-        placeholder="Masukkan password"
-        class="w-full mb-4 px-3 py-2 rounded bg-[#2a2f44] text-[#a0a0a0] placeholder-[#a0a0a0] border border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-[#4a90e2]"
+        placeholder="> password"
+        class="w-full mb-4 px-3 py-2 rounded bg-black text-green-400 placeholder-[#0f0] border border-green-400 focus:outline-none focus:ring-2 focus:ring-green-600"
       />
 
       <button
         onclick="login()"
-        class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-sm font-semibold"
+        class="w-full bg-green-800 hover:bg-green-600 py-2 rounded text-sm font-semibold text-black"
       >
-        Login
+        [ ENTER SYSTEM ]
       </button>
 
       <div id="status" class="mt-4 text-center text-sm"></div>
@@ -45,8 +83,8 @@
         const status = document.getElementById("status");
 
         if (!username || !password) {
-          status.textContent = "Username dan password harus diisi.";
-          status.className = "mt-4 text-red-400 text-center text-sm";
+          status.textContent = "ERROR: username/password missing.";
+          status.className = "mt-4 text-red-500 text-center text-sm";
           return;
         }
 
@@ -58,18 +96,18 @@
 
           if (foundUser) {
             localStorage.setItem("username", username);
-            status.textContent = "Login berhasil! Mengalihkan...";
+            status.textContent = "ACCESS GRANTED. Redirecting...";
             status.className = "mt-4 text-green-400 text-center text-sm";
             setTimeout(() => {
               window.location.href = "home.html";
             }, 1000);
           } else {
-            status.textContent = "Username atau password salah.";
-            status.className = "mt-4 text-red-400 text-center text-sm";
+            status.textContent = "ACCESS DENIED.";
+            status.className = "mt-4 text-red-500 text-center text-sm";
           }
         } catch (err) {
           console.error(err);
-          status.textContent = "Gagal memuat data user.";
+          status.textContent = "CONNECTION ERROR.";
           status.className = "mt-4 text-yellow-400 text-center text-sm";
         }
       }
