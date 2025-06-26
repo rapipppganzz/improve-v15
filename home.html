@@ -6,9 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      darkMode: 'media'
-    }
+    tailwind.config = { darkMode: 'media' }
   </script>
   <style>
     html, body {
@@ -29,6 +27,12 @@
 
   <!-- Background Matrix -->
   <canvas id="matrix"></canvas>
+
+  <!-- Audio Musik -->
+  <audio id="bgMusic" autoplay muted loop>
+    <source src="https://files.catbox.moe/sq8pw5.mp3" type="audio/mpeg">
+    Browser kamu tidak mendukung audio.
+  </audio>
 
   <!-- Konten -->
   <div class="fixed inset-0 flex items-center justify-center z-10 p-4" style="min-height: calc(var(--vh, 1vh) * 100);">
@@ -86,12 +90,23 @@
 
   <!-- Script -->
   <script>
-    // Fullscreen height fix untuk mobile (100vh real)
+    // Fix tinggi viewport HP
     function setFullHeight() {
       document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     }
     window.addEventListener('resize', setFullHeight);
     window.addEventListener('load', setFullHeight);
+
+    // Autoplay musik setelah interaksi
+    const music = document.getElementById("bgMusic");
+    function enableAudio() {
+      music.muted = false;
+      music.play();
+      document.removeEventListener("click", enableAudio);
+      document.removeEventListener("scroll", enableAudio);
+    }
+    document.addEventListener("click", enableAudio);
+    document.addEventListener("scroll", enableAudio);
 
     // Username
     const username = localStorage.getItem("username");
@@ -143,7 +158,6 @@
     // Matrix hacker background
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
-
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 
@@ -157,7 +171,6 @@
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = "#00ff00";
       ctx.font = fontSize + "px monospace";
-
       for (let i = 0; i < drops.length; i++) {
         const text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
