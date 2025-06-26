@@ -37,6 +37,11 @@
     <source src="https://files.catbox.moe/f5aamz.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- Efek Suara Sentuhan -->
+<audio id="clickSound">
+  <source src="https://files.catbox.moe/ly2wsa.mp3" type="audio/mpeg">
+</audio>
+
   <!-- Konten -->
   <div id="mainContent" class="fixed inset-0 flex items-center justify-center z-10 p-4" style="min-height: calc(var(--vh, 1vh) * 100);">
     <div class="relative bg-white dark:bg-[#1e253a] text-black dark:text-white rounded-xl p-6 sm:p-10 w-full max-w-md sm:max-w-xl shadow-2xl">
@@ -165,6 +170,21 @@
       el.classList.add("shake");
       setTimeout(() => el.classList.remove("shake"), 300);
     });
+
+    // Efek suara sentuhan
+const clickSound = document.getElementById("clickSound");
+
+document.body.addEventListener("click", () => {
+  const el = document.getElementById("mainContent");
+
+  // Efek getar
+  el.classList.add("shake");
+  setTimeout(() => el.classList.remove("shake"), 300);
+
+  // Efek suara
+  clickSound.currentTime = 0;
+  clickSound.play();
+  });
   </script>
 </body>
 </html>
