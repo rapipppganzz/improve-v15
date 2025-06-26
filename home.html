@@ -61,6 +61,19 @@
       </div>
     </div>
 
+    <!-- Modal Support -->
+    <div id="supportModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
+      <div class="bg-[#1e253a] text-white rounded-xl p-6 w-full max-w-sm relative">
+        <button onclick="closeModal()" class="absolute top-2 right-3 text-sm bg-red-500 hover:bg-red-600 px-2 py-1 rounded">✕</button>
+        <h2 class="text-lg font-bold text-cyan-400 mb-2">Butuh Bantuan?</h2>
+        <p class="text-sm mb-3">Hubungi admin di:</p>
+        <ul class="text-sm list-disc list-inside text-gray-300">
+          <li>WhatsApp: <a href="https://wa.me/6281234567890" target="_blank" class="text-cyan-400 hover:underline">6281234567890</a></li>
+          <li>Email: <a href="mailto:support@rapipppmodss.com" class="text-cyan-400 hover:underline">support@rapipppmodss.com</a></li>
+        </ul>
+      </div>
+    </div>
+
     <script>
       // Ambil username dari localStorage
       const username = localStorage.getItem("username");
@@ -121,6 +134,16 @@
           alert("❌ Gagal mengirim ke server.");
         });
       }
+
+      // Modal support
+      function closeModal() {
+        document.getElementById("supportModal").classList.add("hidden");
+      }
+
+      document.querySelector("a[href='#']").addEventListener("click", (e) => {
+        e.preventDefault();
+        document.getElementById("supportModal").classList.remove("hidden");
+      });
     </script>
   </body>
 </html>
