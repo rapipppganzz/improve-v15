@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <title>RapipppModss App</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Aktifkan dark mode Tailwind berdasarkan sistem
+      tailwind.config = {
+        darkMode: 'media',
+      }
+    </script>
   </head>
-  <body class="bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center p-4" style="background-image: url('https://files.catbox.moe/z7nq71.jpg');">
+  <body class="bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center p-4 transition-all duration-300"
+    style="background-image: url('https://files.catbox.moe/z7nq71.jpg');">
 
-    <div class="relative bg-[#1e253a] text-white rounded-xl p-6 sm:p-10 w-full max-w-full sm:max-w-xl shadow-lg mx-2">
+    <div class="relative bg-white dark:bg-[#1e253a] text-black dark:text-white rounded-xl p-6 sm:p-10 w-full max-w-full sm:max-w-xl shadow-lg mx-2">
 
       <!-- Tombol Logout -->
       <button onclick="logout()" class="absolute top-4 right-4 text-sm bg-red-500 hover:bg-red-600 px-3 py-1 rounded">
@@ -15,7 +22,7 @@
       </button>
 
       <!-- Judul -->
-      <h1 class="text-xl font-bold text-cyan-400 text-center mb-4">IMPROVE V15 PRO</h1>
+      <h1 class="text-xl font-bold text-cyan-600 dark:text-cyan-400 text-center mb-4">IMPROVE V15 PRO</h1>
 
       <!-- Thumbnail Tetap -->
       <img
@@ -25,23 +32,23 @@
       />
 
       <!-- Box Promosi -->
-      <div class="bg-[#111827] border-2 border-yellow-400 text-center text-white py-2 px-4 rounded-md mb-4 font-semibold text-sm">
+      <div class="bg-yellow-100 dark:bg-[#111827] border-2 border-yellow-400 text-center text-black dark:text-white py-2 px-4 rounded-md mb-4 font-semibold text-sm">
         🚀 IMPROVE V15 BY RAPIPPPMODSS 🚀
       </div>
 
       <!-- Input Nomor WA -->
       <input
         id="waNumber"
-        class="w-full mb-4 px-3 py-2 rounded bg-[#2a2f44] text-[#a0a0a0] placeholder-[#a0a0a0] border border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-[#4a90e2]"
+        class="w-full mb-4 px-3 py-2 rounded bg-gray-100 dark:bg-[#2a2f44] text-black dark:text-[#a0a0a0] placeholder-gray-500 dark:placeholder-[#a0a0a0] border border-gray-300 dark:border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-cyan-500"
         placeholder="Masukkan nomor WA (628xxxx)"
         type="text"
       />
 
       <!-- Tombol Aksi -->
       <div class="grid grid-cols-3 gap-2 mb-4">
-        <button onclick="sendAction('android')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs">Crash<br>Android</button>
-        <button onclick="sendAction('ios')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs">Crash<br>iPhone</button>
-        <button onclick="sendAction('delay')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs">Delay<br>Mention</button>
+        <button onclick="sendAction('android')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs text-white">Crash<br>Android</button>
+        <button onclick="sendAction('ios')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs text-white">Crash<br>iPhone</button>
+        <button onclick="sendAction('delay')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs text-white">Delay<br>Mention</button>
       </div>
 
       <!-- Status -->
@@ -55,21 +62,21 @@
       </p>
 
       <!-- Footer -->
-      <div class="flex justify-between items-center text-xs text-gray-400 pt-2 border-t border-[#2c344b] mt-2">
+      <div class="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 pt-2 border-t border-gray-300 dark:border-[#2c344b] mt-2">
         <span>© RapipppModss</span>
-        <a href="#" id="supportLink" class="text-cyan-400 hover:underline">Hubungi kami</a>
+        <a href="#" id="supportLink" class="text-cyan-600 dark:text-cyan-400 hover:underline">Hubungi kami</a>
       </div>
     </div>
 
     <!-- Modal Support -->
     <div id="supportModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 hidden">
-      <div class="bg-[#1e253a] text-white rounded-xl p-6 w-full max-w-sm relative">
+      <div class="bg-white dark:bg-[#1e253a] text-black dark:text-white rounded-xl p-6 w-full max-w-sm relative">
         <button onclick="closeModal()" class="absolute top-2 right-3 text-sm bg-red-500 hover:bg-red-600 px-2 py-1 rounded">✕</button>
-        <h2 class="text-lg font-bold text-cyan-400 mb-2">Butuh Bantuan?</h2>
+        <h2 class="text-lg font-bold text-cyan-600 dark:text-cyan-400 mb-2">Butuh Bantuan?</h2>
         <p class="text-sm mb-3">Hubungi admin di:</p>
-        <ul class="text-sm list-disc list-inside text-gray-300">
-          <li>WhatsApp: <a href="https://wa.me/6283159391279" target="_blank" class="text-cyan-400 hover:underline">6283159391279</a></li>
-          <li>Email: <a href="mailto:support@rapipppmodss.com" class="text-cyan-400 hover:underline">support@rapipppmodss.com</a></li>
+        <ul class="text-sm list-disc list-inside text-gray-700 dark:text-gray-300">
+          <li>WhatsApp: <a href="https://wa.me/6283159391279" target="_blank" class="text-cyan-600 dark:text-cyan-400 hover:underline">6283159391279</a></li>
+          <li>Email: <a href="mailto:support@rapipppmodss.com" class="text-cyan-600 dark:text-cyan-400 hover:underline">support@rapipppmodss.com</a></li>
         </ul>
       </div>
     </div>
@@ -89,7 +96,7 @@
         window.location.href = "index.html";
       }
 
-      // Simulasi server tidak aktif
+      // Simulasi status server down
       document.getElementById("serverStatus").textContent = "Server Tidak Aktif ❌";
 
       // Kirim aksi ke API
@@ -97,7 +104,6 @@
         const number = document.getElementById("waNumber").value.trim();
         console.log("Nomor dikirim:", number);
 
-        // Validasi regex nomor WA
         if (!/^62\d{8,15}$/.test(number)) {
           alert("⚠️ Nomor tidak valid. Gunakan format 62xxxxxxxxxx");
           return;
