@@ -57,7 +57,7 @@
       <!-- Footer -->
       <div class="flex justify-between items-center text-xs text-gray-400 pt-2 border-t border-[#2c344b] mt-2">
         <span>© RapipppModss</span>
-        <a href="#" class="text-cyan-400 hover:underline">Hubungi kami</a>
+        <a href="#" id="supportLink" class="text-cyan-400 hover:underline">Hubungi kami</a>
       </div>
     </div>
 
@@ -78,32 +78,28 @@
       // Ambil username dari localStorage
       const username = localStorage.getItem("username");
       if (!username) {
-        window.location.href = "index.html"; // redirect ke login kalau belum login
+        window.location.href = "index.html";
       } else {
         document.getElementById("username").textContent = username;
       }
 
-      // Logout: hapus localStorage dan balik ke login
+      // Logout function
       function logout() {
         localStorage.removeItem("username");
         window.location.href = "index.html";
       }
 
-      // Cek status server
-      fetch("https://example.com/api/status") // Ganti ke API milikmu
-        .then(res => {
-          if (!res.ok) throw new Error("DOWN");
-          document.getElementById("serverStatus").textContent = "Server Aktif ✅";
-        })
-        .catch(() => {
-          document.getElementById("serverStatus").textContent = "Server Tidak Aktif ❌";
-        });
+      // Simulasi server tidak aktif
+      document.getElementById("serverStatus").textContent = "Server Tidak Aktif ❌";
 
       // Kirim aksi ke API
       function sendAction(action) {
         const number = document.getElementById("waNumber").value.trim();
-        if (!number || !number.startsWith("62")) {
-          alert("⚠️ Masukkan nomor WhatsApp yang valid (mulai dengan 62)");
+        console.log("Nomor dikirim:", number);
+
+        // Validasi regex nomor WA
+        if (!/^62\d{8,15}$/.test(number)) {
+          alert("⚠️ Nomor tidak valid. Gunakan format 62xxxxxxxxxx");
           return;
         }
 
@@ -140,7 +136,7 @@
         document.getElementById("supportModal").classList.add("hidden");
       }
 
-      document.querySelector("a[href='#']").addEventListener("click", (e) => {
+      document.getElementById("supportLink").addEventListener("click", (e) => {
         e.preventDefault();
         document.getElementById("supportModal").classList.remove("hidden");
       });
