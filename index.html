@@ -43,33 +43,40 @@
   </style>
 </head>
 <body>
-  <!-- 🟩 MATRIX EFFECT CANVAS -->
+  <!-- 🟩 MATRIX BACKGROUND EFFECT -->
   <canvas id="matrix"></canvas>
 
-  <div class="flex items-center justify-center min-h-screen login-container">
-    <div class="bg-black text-green-400 rounded-xl p-20 w-full max-w-lg hacker-border">
+  <!-- 🧩 LOGIN FORM -->
+  <div class="flex items-center justify-center min-h-screen login-container px-4">
+    <div class="bg-black text-green-400 rounded-xl p-10 w-full max-w-lg hacker-border">
+      
+      <!-- ✅ THUMBNAIL KOTAK 4:1 -->
       <div class="flex justify-center mb-4">
-        <img src="https://i.imgur.com/GDNuZcD.png" alt="Hacker" class="w-20 h-20 rounded-full border-2 border-green-400" />
+        <img
+          src="https://i.imgur.com/VcIhPvn.png"
+          alt="Hacker Banner"
+          class="w-[200px] h-[50px] border-2 border-green-400 object-cover"
+        />
       </div>
 
-      <h1 class="text-xl font-bold text-green-400 text-center mb-4 glow">[ ACCESS PANEL ]</h1>
+      <h1 class="text-2xl font-bold text-green-400 text-center mb-6 glow">[ ACCESS PANEL ]</h1>
 
       <input
         id="usernameInput"
         type="text"
         placeholder="> username"
-        class="w-full mb-3 px-3 py-2 rounded bg-black text-green-400 placeholder-[#0f0] border border-green-400 focus:outline-none focus:ring-2 focus:ring-green-600"
+        class="w-full mb-3 px-4 py-3 rounded bg-black text-green-400 placeholder-[#0f0] border border-green-400 focus:outline-none focus:ring-2 focus:ring-green-600"
       />
       <input
         id="passwordInput"
         type="password"
         placeholder="> password"
-        class="w-full mb-4 px-3 py-2 rounded bg-black text-green-400 placeholder-[#0f0] border border-green-400 focus:outline-none focus:ring-2 focus:ring-green-600"
+        class="w-full mb-4 px-4 py-3 rounded bg-black text-green-400 placeholder-[#0f0] border border-green-400 focus:outline-none focus:ring-2 focus:ring-green-600"
       />
 
       <button
         onclick="login()"
-        class="w-full bg-green-800 hover:bg-green-600 py-2 rounded text-sm font-semibold text-black"
+        class="w-full bg-green-800 hover:bg-green-600 py-3 rounded text-sm font-semibold text-black"
       >
         [ ENTER SYSTEM ]
       </button>
@@ -78,6 +85,7 @@
     </div>
   </div>
 
+  <!-- 🔐 LOGIN SCRIPT -->
   <script>
     async function login() {
       const username = document.getElementById("usernameInput").value.trim();
@@ -114,14 +122,14 @@
       }
     }
 
-    // 🌧️ Matrix Background Effect
+    // 🌧️ MATRIX BACKGROUND EFFECT
     const canvas = document.getElementById("matrix");
     const ctx = canvas.getContext("2d");
 
     canvas.height = window.innerHeight;
     canvas.width = window.innerWidth;
 
-    const letters = "アァイゥエオカキクケコサシスセソタチツテトABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const letters = "アァイゥエオカキクケコサシスセソABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const fontSize = 16;
     const columns = canvas.width / fontSize;
 
