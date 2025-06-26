@@ -5,63 +5,64 @@
     <title>RapipppModss App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      // Aktifkan dark mode Tailwind berdasarkan sistem
       tailwind.config = {
         darkMode: 'media',
       }
     </script>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+      }
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 0;
+      }
+    </style>
   </head>
-  <body class="bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center p-4 transition-all duration-300"
-    style="background-image: url('https://files.catbox.moe/z7nq71.jpg');">
+  <body class="relative min-h-screen flex items-center justify-center p-4">
 
-    <div class="relative bg-white dark:bg-[#1e253a] text-black dark:text-white rounded-xl p-6 sm:p-10 w-full max-w-full sm:max-w-xl shadow-lg mx-2">
+    <!-- Background Canvas Hacker -->
+    <canvas id="matrix"></canvas>
+
+    <!-- Konten Utama -->
+    <div class="relative z-10 bg-white dark:bg-[#1e253a] text-black dark:text-white rounded-xl p-6 sm:p-10 w-full max-w-md sm:max-w-xl shadow-2xl">
 
       <!-- Tombol Logout -->
       <button onclick="logout()" class="absolute top-4 right-4 text-sm bg-red-500 hover:bg-red-600 px-3 py-1 rounded">
         Logout
       </button>
 
-      <!-- Judul -->
       <h1 class="text-xl font-bold text-cyan-600 dark:text-cyan-400 text-center mb-4">IMPROVE V15 PRO</h1>
 
-      <!-- Thumbnail Tetap -->
-      <img
-        src="https://files.catbox.moe/97vosy.jpg"
-        alt="Thumbnail"
-        class="mx-auto mb-4 w-24 h-24 rounded-full border border-[#2a2f44] object-cover"
-      />
+      <img src="https://files.catbox.moe/97vosy.jpg" alt="Thumbnail" class="mx-auto mb-4 w-24 h-24 rounded-full border border-[#2a2f44] object-cover" />
 
-      <!-- Box Promosi -->
-      <div class="bg-yellow-100 dark:bg-[#111827] border-2 border-yellow-400 text-center text-black dark:text-white py-2 px-4 rounded-md mb-4 font-semibold text-sm">
+      <div class="bg-yellow-100 dark:bg-[#111827] border-2 border-yellow-400 text-center py-2 px-4 rounded-md mb-4 font-semibold text-sm">
         🚀 IMPROVE V15 BY RAPIPPPMODSS 🚀
       </div>
 
-      <!-- Input Nomor WA -->
-      <input
-        id="waNumber"
+      <input id="waNumber"
         class="w-full mb-4 px-3 py-2 rounded bg-gray-100 dark:bg-[#2a2f44] text-black dark:text-[#a0a0a0] placeholder-gray-500 dark:placeholder-[#a0a0a0] border border-gray-300 dark:border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-cyan-500"
-        placeholder="Masukkan nomor WA (628xxxx)"
-        type="text"
-      />
+        placeholder="Masukkan nomor WA (628xxxx)" type="text" />
 
-      <!-- Tombol Aksi -->
       <div class="grid grid-cols-3 gap-2 mb-4">
         <button onclick="sendAction('android')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs text-white">Crash<br>Android</button>
         <button onclick="sendAction('ios')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs text-white">Crash<br>iPhone</button>
         <button onclick="sendAction('delay')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs text-white">Delay<br>Mention</button>
       </div>
 
-      <!-- Status -->
       <p class="text-sm mb-1">
         <span class="font-bold">Status:</span> <span id="serverStatus">Mengecek...</span>
       </p>
 
-      <!-- Info -->
       <p class="text-sm mb-4">
         <span class="font-bold">Info:</span> Selamat datang, <span id="username">Pengguna</span>
       </p>
 
-      <!-- Footer -->
       <div class="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 pt-2 border-t border-gray-300 dark:border-[#2c344b] mt-2">
         <span>© RapipppModss</span>
         <a href="#" id="supportLink" class="text-cyan-600 dark:text-cyan-400 hover:underline">Hubungi kami</a>
@@ -81,8 +82,9 @@
       </div>
     </div>
 
+    <!-- JS Logic -->
     <script>
-      // Ambil username dari localStorage
+      // Username check
       const username = localStorage.getItem("username");
       if (!username) {
         window.location.href = "index.html";
@@ -90,20 +92,17 @@
         document.getElementById("username").textContent = username;
       }
 
-      // Logout function
+      // Logout
       function logout() {
         localStorage.removeItem("username");
         window.location.href = "index.html";
       }
 
-      // Simulasi status server down
+      // Simulasi server status
       document.getElementById("serverStatus").textContent = "Server Tidak Aktif ❌";
 
-      // Kirim aksi ke API
       function sendAction(action) {
         const number = document.getElementById("waNumber").value.trim();
-        console.log("Nomor dikirim:", number);
-
         if (!/^62\d{8,15}$/.test(number)) {
           alert("⚠️ Nomor tidak valid. Gunakan format 62xxxxxxxxxx");
           return;
@@ -111,15 +110,9 @@
 
         let url = "";
         switch (action) {
-          case "delay":
-            url = "https://example.com/api/delay";
-            break;
-          case "android":
-            url = "https://example.com/api/crash/android";
-            break;
-          case "ios":
-            url = "https://example.com/api/crash/ios";
-            break;
+          case "delay": url = "https://example.com/api/delay"; break;
+          case "android": url = "https://example.com/api/crash/android"; break;
+          case "ios": url = "https://example.com/api/crash/ios"; break;
         }
 
         fetch(url, {
@@ -128,24 +121,54 @@
           body: JSON.stringify({ number: number })
         })
         .then(res => res.json())
-        .then(data => {
-          alert("✅ Berhasil: " + (data.message || "Terkirim!"));
-        })
+        .then(data => alert("✅ Berhasil: " + (data.message || "Terkirim!")))
         .catch(err => {
           console.error(err);
           alert("❌ Gagal mengirim ke server.");
         });
       }
 
-      // Modal support
+      // Modal logic
       function closeModal() {
         document.getElementById("supportModal").classList.add("hidden");
       }
-
       document.getElementById("supportLink").addEventListener("click", (e) => {
         e.preventDefault();
         document.getElementById("supportModal").classList.remove("hidden");
       });
+
+      // Matrix Effect
+      const canvas = document.getElementById('matrix');
+      const ctx = canvas.getContext('2d');
+
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+
+      let letters = '01';
+      letters = letters.split('');
+
+      let fontSize = 12;
+      let columns = canvas.width / fontSize;
+      let drops = Array.from({ length: columns }).fill(1);
+
+      function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#00ff00';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = letters[Math.floor(Math.random() * letters.length)];
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height || Math.random() > 0.95) {
+            drops[i] = 0;
+          }
+
+          drops[i]++;
+        }
+      }
+      setInterval(drawMatrix, 50);
     </script>
   </body>
 </html>
