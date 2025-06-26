@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login - RapipppModss</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-[#0f172a] min-h-screen flex items-center justify-center px-4">
+    <div class="bg-[#1e253a] text-white rounded-xl p-8 w-full max-w-sm shadow-lg">
+      <h1 class="text-xl font-bold text-cyan-400 text-center mb-4">Login ke Improve V15</h1>
+
+      <input
+        id="usernameInput"
+        type="text"
+        placeholder="Masukkan username kamu"
+        class="w-full mb-4 px-3 py-2 rounded bg-[#2a2f44] text-[#a0a0a0] placeholder-[#a0a0a0] border border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-[#4a90e2]"
+      />
+
+      <button
+        onclick="login()"
+        class="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded text-sm font-semibold"
+      >
+        Login
+      </button>
+    </div>
+
+    <script>
+      function login() {
+        const username = document.getElementById("usernameInput").value.trim();
+        if (!username) {
+          alert("Masukkan username dulu.");
+          return;
+        }
+
+        localStorage.setItem("username", username);
+        window.location.href = "home.html"; // masuk ke halaman utama
+      }
+    </script>
+  </body>
+</html>

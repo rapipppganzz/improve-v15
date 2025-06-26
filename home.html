@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RapipppModss App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-cover bg-center bg-no-repeat min-h-screen flex items-center justify-center p-4" style="background-image: url('https://files.catbox.moe/z7nq71.jpg');">
+
+    <div class="relative bg-[#1e253a] text-white rounded-xl p-8 w-full max-w-md shadow-lg">
+
+      <!-- Tombol Logout -->
+      <button onclick="logout()" class="absolute top-4 right-4 text-sm bg-red-500 hover:bg-red-600 px-3 py-1 rounded">
+        Logout
+      </button>
+
+      <!-- Judul -->
+      <h1 class="text-xl font-bold text-cyan-400 text-center mb-4">IMPROVE V15 PRO</h1>
+
+      <!-- Thumbnail Tetap -->
+      <img
+        src="https://files.catbox.moe/97vosy.jpg"
+        alt="Thumbnail"
+        class="mx-auto mb-4 w-24 h-24 rounded-full border border-[#2a2f44] object-cover"
+      />
+
+      <!-- Box Promosi -->
+      <div class="bg-[#111827] border-2 border-yellow-400 text-center text-white py-2 px-4 rounded-md mb-4 font-semibold text-sm">
+        🚀 IMPROVE V15 BY RAPIPPPMODSS 🚀
+      </div>
+
+      <!-- Input Nomor WA -->
+      <input
+        id="waNumber"
+        class="w-full mb-4 px-3 py-2 rounded bg-[#2a2f44] text-[#a0a0a0] placeholder-[#a0a0a0] border border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-[#4a90e2]"
+        placeholder="Masukkan nomor WA (628xxxx)"
+        type="text"
+      />
+
+      <!-- Tombol Aksi -->
+      <div class="grid grid-cols-3 gap-2 mb-4">
+        <button onclick="sendAction('android')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs">Crash<br>Android</button>
+        <button onclick="sendAction('ios')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs">Crash<br>iPhone</button>
+        <button onclick="sendAction('delay')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs">Delay<br>Mention</button>
+      </div>
+
+      <!-- Status -->
+      <p class="text-sm mb-1">
+        <span class="font-bold">Status:</span> <span id="serverStatus">Mengecek...</span>
+      </p>
+
+      <!-- Info -->
+      <p class="text-sm mb-4">
+        <span class="font-bold">Info:</span> Selamat datang, <span id="username">Pengguna</span>
+      </p>
+
+      <!-- Footer -->
+      <div class="flex justify-between items-center text-xs text-gray-400 pt-2 border-t border-[#2c344b] mt-2">
+        <span>© RapipppModss</span>
+        <a href="#" class="text-cyan-400 hover:underline">Support</a>
+      </div>
+    </div>
+
+    <script>
+      // Ambil username dari localStorage
+      const username = localStorage.getItem("username");
+      if (!username) {
+        window.location.href = "index.html"; // redirect ke login kalau belum login
+      } else {
+        document.getElementById("username").textContent = username;
+      }
+
+      // Logout: hapus localStorage dan balik ke login
+      function logout() {
+        localStorage.removeItem("username");
+        window.location.href = "index.html";
+      }
+
+      // Cek status server
+      fetch("https://example.com/api/status") // Ganti ke API milikmu
+        .then(res => {
+          if (!res.ok) throw new Error("DOWN");
+          document.getElementById("serverStatus").textContent = "Server Aktif ✅";
+        })
+        .catch(() => {
+          document.getElementById("serverStatus").textContent = "Server Tidak Aktif ❌";
+        });
+
+      // Kirim aksi ke API
+      function sendAction(action) {
+        const number = document.getElementById("waNumber").value.trim();
+        if (!number || !number.startsWith("62")) {
+          alert("⚠️ Masukkan nomor WhatsApp yang valid (mulai dengan 62)");
+          return;
+        }
+
+        let url = "";
+        switch (action) {
+          case "delay":
+            url = "https://example.com/api/delay";
+            break;
+          case "android":
+            url = "https://example.com/api/crash/android";
+            break;
+          case "ios":
+            url = "https://example.com/api/crash/ios";
+            break;
+        }
+
+        fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ number: number })
+        })
+        .then(res => res.json())
+        .then(data => {
+          alert("✅ Berhasil: " + (data.message || "Terkirim!"));
+        })
+        .catch(err => {
+          console.error(err);
+          alert("❌ Gagal mengirim ke server.");
+        });
+      }
+    </script>
+  </body>
+</html>
