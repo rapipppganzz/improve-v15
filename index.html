@@ -13,6 +13,12 @@
         id="usernameInput"
         type="text"
         placeholder="Masukkan username kamu"
+        class="w-full mb-3 px-3 py-2 rounded bg-[#2a2f44] text-[#a0a0a0] placeholder-[#a0a0a0] border border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-[#4a90e2]"
+      />
+      <input
+        id="passwordInput"
+        type="password"
+        placeholder="Masukkan password"
         class="w-full mb-4 px-3 py-2 rounded bg-[#2a2f44] text-[#a0a0a0] placeholder-[#a0a0a0] border border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-[#4a90e2]"
       />
 
@@ -22,18 +28,44 @@
       >
         Login
       </button>
+
+      <div id="status" class="mt-4 text-center text-sm"></div>
     </div>
 
     <script>
-      function login() {
+      async function login() {
         const username = document.getElementById("usernameInput").value.trim();
-        if (!username) {
-          alert("Masukkan username dulu.");
+        const password = document.getElementById("passwordInput").value.trim();
+        const status = document.getElementById("status");
+
+        if (!username || !password) {
+          status.textContent = "Username dan password harus diisi.";
+          status.className = "mt-4 text-red-400 text-center text-sm";
           return;
         }
 
-        localStorage.setItem("username", username);
-        window.location.href = "home.html"; // masuk ke halaman utama
+        try {
+          const res = await fetch('https://raw.githubusercontent.com/NAMA-USER-GITHUB/NAMA-REPO/main/user.json');
+          const users = await res.json();
+
+          const foundUser = users.find(user => user.username === username && user.password === password);
+
+          if (foundUser) {
+            localStorage.setItem("username", username);
+            status.textContent = "Login berhasil! Mengalihkan...";
+            status.className = "mt-4 text-green-400 text-center text-sm";
+            setTimeout(() => {
+              window.location.href = "home.html";
+            }, 1000);
+          } else {
+            status.textContent = "Username atau password salah.";
+            status.className = "mt-4 text-red-400 text-center text-sm";
+          }
+        } catch (err) {
+          console.error(err);
+          status.textContent = "Gagal memuat data user.";
+          status.className = "mt-4 text-yellow-400 text-center text-sm";
+        }
       }
     </script>
   </body>
