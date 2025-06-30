@@ -15,7 +15,6 @@
       height: 100%;
     }
 
-    /* Efek getar */
     @keyframes shake {
       0% { transform: translate(0, 0); }
       20% { transform: translate(-2px, 2px); }
@@ -32,35 +31,30 @@
 </head>
 <body class="bg-gray-200 dark:bg-gray-900 text-black dark:text-white transition-all duration-300">
 
-  <!-- Audio Musik -->
-  <audio id="bgMusic" autoplay loop>
+  <!-- Musik Latar -->
+  <audio id="bgMusic" autoplay loop muted>
     <source src="https://files.catbox.moe/f5aamz.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Efek Suara Sentuhan -->
-<audio id="clickSound">
-  <source src="https://files.catbox.moe/q4wpwt.mp3" type="audio/mpeg">
-</audio>
+  <!-- Suara Sentuhan -->
+  <audio id="clickSound">
+    <source src="https://files.catbox.moe/q4wpwt.mp3" type="audio/mpeg">
+  </audio>
 
-  <!-- Konten -->
   <div id="mainContent" class="fixed inset-0 flex items-center justify-center z-10 p-4" style="min-height: calc(var(--vh, 1vh) * 100);">
     <div class="relative bg-white dark:bg-[#1e253a] text-black dark:text-white rounded-xl p-6 sm:p-10 w-full max-w-md sm:max-w-xl shadow-2xl">
-
-      <!-- Logout -->
       <button onclick="logout()" class="absolute top-4 right-4 text-sm bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Logout</button>
 
       <h1 class="text-xl font-bold text-cyan-600 dark:text-cyan-400 text-center mb-4">IMPROVE V15 PRO</h1>
 
-      <img src="https://files.catbox.moe/97vosy.jpg" alt="Thumbnail"
-           class="mx-auto mb-4 w-24 h-24 rounded-full border border-[#2a2f44] object-cover" />
+      <img src="https://files.catbox.moe/97vosy.jpg" alt="Thumbnail" class="mx-auto mb-4 w-24 h-24 rounded-full border border-[#2a2f44] object-cover" />
 
       <div class="bg-yellow-100 dark:bg-[#111827] border-2 border-yellow-400 text-center py-2 px-4 rounded-md mb-4 font-semibold text-sm">
         🚀 IMPROVE V15 BY RAPIPPPMODSS 🚀
       </div>
 
-      <input id="waNumber"
-             class="w-full mb-4 px-3 py-2 rounded bg-gray-100 dark:bg-[#2a2f44] text-black dark:text-[#a0a0a0] placeholder-gray-500 dark:placeholder-[#a0a0a0] border border-gray-300 dark:border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-cyan-500"
-             placeholder="Masukkan nomor WA (contoh: 628xxxxxx atau lainnya)" type="text" />
+      <input id="waNumber" placeholder="Masukkan nomor WA (contoh: 628xxxxxx)" type="text"
+        class="w-full mb-4 px-3 py-2 rounded bg-gray-100 dark:bg-[#2a2f44] text-black dark:text-[#a0a0a0] placeholder-gray-500 dark:placeholder-[#a0a0a0] border border-gray-300 dark:border-[#2a2f44] focus:outline-none focus:ring-2 focus:ring-cyan-500" />
 
       <div class="grid grid-cols-3 gap-2 mb-4">
         <button onclick="sendAction('android')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs text-white">Crash<br>Android</button>
@@ -68,13 +62,8 @@
         <button onclick="sendAction('delay')" class="bg-blue-600 hover:bg-blue-700 py-2 rounded text-xs text-white">Delay<br>Mention</button>
       </div>
 
-      <p class="text-sm mb-1">
-        <span class="font-bold">Status:</span> <span id="serverStatus">Mengecek...</span>
-      </p>
-
-      <p class="text-sm mb-4">
-        <span class="font-bold">Info:</span> Selamat datang, <span id="username">Pengguna</span>
-      </p>
+      <p class="text-sm mb-1"><span class="font-bold">Status:</span> <span id="serverStatus">Server Tidak Aktif ❌</span></p>
+      <p class="text-sm mb-4"><span class="font-bold">Info:</span> Selamat datang, <span id="username">Pengguna</span></p>
 
       <div class="flex justify-between items-center text-xs text-gray-600 dark:text-gray-400 pt-2 border-t border-gray-300 dark:border-[#2c344b] mt-2">
         <span>© RapipppModss</span>
@@ -96,16 +85,13 @@
     </div>
   </div>
 
-  <!-- Script -->
   <script>
-    // Viewport fix untuk HP
     function setFullHeight() {
       document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     }
     window.addEventListener('resize', setFullHeight);
     window.addEventListener('load', setFullHeight);
 
-    // Autoplay musik setelah interaksi
     const music = document.getElementById("bgMusic");
     function enableAudio() {
       music.muted = false;
@@ -116,7 +102,6 @@
     document.addEventListener("click", enableAudio);
     document.addEventListener("scroll", enableAudio);
 
-    // Username dari localStorage
     const username = localStorage.getItem("username");
     if (!username) window.location.href = "index.html";
     else document.getElementById("username").textContent = username;
@@ -125,8 +110,6 @@
       localStorage.removeItem("username");
       window.location.href = "index.html";
     }
-
-    document.getElementById("serverStatus").textContent = "Server Tidak Aktif ❌";
 
     function sendAction(action) {
       const number = document.getElementById("waNumber").value.trim();
@@ -144,47 +127,44 @@
 
       fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ number: number })
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ number })
       })
-      .then(res => res.json())
-      .then(data => alert("✅ Berhasil: " + (data.message || "Terkirim!")))
-      .catch(err => {
-        console.error(err);
-        alert("❌ Gagal mengirim ke server.");
-      });
+        .then(async (res) => {
+          if (!res.ok) {
+            const errText = await res.text();
+            throw new Error(`Server error (${res.status}): ${errText}`);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          alert("✅ Berhasil: " + (data.message || "Terkirim!"));
+          console.log("Respons dari server:", data);
+        })
+        .catch((err) => {
+          console.error("Gagal terhubung ke API:", err);
+          alert("❌ Gagal mengirim ke server.\n" + err.message);
+        });
     }
 
-    // Modal support
     function closeModal() {
       document.getElementById("supportModal").classList.add("hidden");
     }
-    document.getElementById("supportLink").addEventListener("click", function(e) {
+    document.getElementById("supportLink").addEventListener("click", function (e) {
       e.preventDefault();
       document.getElementById("supportModal").classList.remove("hidden");
     });
 
-    // Efek getar di seluruh layar saat disentuh
+    const clickSound = document.getElementById("clickSound");
     document.body.addEventListener("click", () => {
       const el = document.getElementById("mainContent");
       el.classList.add("shake");
       setTimeout(() => el.classList.remove("shake"), 300);
+      clickSound.currentTime = 0;
+      clickSound.play();
     });
-
-    // Efek suara sentuhan
-const clickSound = document.getElementById("clickSound");
-
-document.body.addEventListener("click", () => {
-  const el = document.getElementById("mainContent");
-
-  // Efek getar
-  el.classList.add("shake");
-  setTimeout(() => el.classList.remove("shake"), 300);
-
-  // Efek suara
-  clickSound.currentTime = 0;
-  clickSound.play();
-  });
   </script>
 </body>
 </html>
